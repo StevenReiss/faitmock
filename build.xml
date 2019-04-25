@@ -1,0 +1,30 @@
+<project name='faitmock' default='jar'>
+
+   <property name='PRO' value='/pro' />
+   <property name='BUBBLESLIB' value='${PRO}/bubbles/lib' />
+
+   <target name='all'>
+      <ant antfile="build.xml" dir="javasrc" />
+   </target>
+
+   <path id='jdocsrc'>
+      <pathelement location='./javasrc' />
+    </path>
+
+   <target name='doc'>
+      <ant antfile='build.xml' dir='javasrc' target='doc' />
+      <zip zipfile='lib/apidoc.zip' basedir='doc' />
+   </target>
+
+   <target name='jar' depends='all' >
+      <jar destfile='faitmock.jar'>
+	 <manifest>
+	 </manifest>
+	 <fileset dir='./java' includes='**/*.class' />
+	 <fileset dir='./javasrc' includes='**/fait.xml' />
+      </jar>
+      <copy file='faitmock.jar' tofile='${BUBBLESLIB}/faitmock.jar' verbose='true' />
+   </target>
+
+</project>
+

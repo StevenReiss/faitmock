@@ -1,0 +1,53 @@
+<project name='faitmock.servlet' default='compile'>
+
+   <property file='../../../../../../build.properties' />
+   <property name='PRO' value='/research' />
+   <property name='FAITMOCK' value='/research/people/spr/faitmock' />
+
+   <target name='init'>
+      <path id='faitmock.classpath'>
+	 <pathelement location='${FAITMOCK}/java' />
+	 <pathelement location='${FAITMOCK}/lib/javax.servlet.jar' />
+	 <pathelement location='${FAITMOCK}/lib/javax.servlet.jsp.jar' />
+	 <pathelement location='${FAITMOCK}/lib/javax.el-api.jar' />
+	 <pathelement location='${PRO}/bubbles/lib/annotations.jar' />
+	 <pathelement location='${PRO}/bubbles/lib/karma.jar' />
+      </path>
+      <path id='test.classpath'>
+	 <pathelement location='${FAITMOCK}/java' />
+	 <pathelement location='${FAITMOCK}/lib/javax.servlet.jar' />
+	 <pathelement location='${FAITMOCK}/lib/javax.servlet.jsp.jar' />
+	 <pathelement location='${FAITMOCK}/lib/javax.el-api.jar' />
+	 <pathelement location='${PRO}/bubbles/lib/annotations.jar' />
+	 <pathelement location='${PRO}/bubbles/lib/karma.jar' />
+      </path>
+   </target>
+
+   <target name='compile' depends='init'>
+      <javac srcdir='.' destdir='${FAITMOCK}/java' debug='on' deprecation='on'
+		includeantruntime='false' >
+	 <classpath refid='faitmock.classpath' />
+	 <compilerarg value='-Xlint:all' />
+      </javac>
+   </target>
+
+   <target name='clean'>
+      <delete dir='${FAITMOCK}/java/edu/brown/cs/faitmock/servlet' />
+   </target>
+
+   <target name='test' depends='compile'>
+      <junit fork='true' printsummary='on'>
+	 <classpath refid='test.classpath' />
+	 <assertions><enable/></assertions>
+	 <formatter type='plain' />
+	 <test name='edu.brown.cs.faitmock.servlet.ServletTest' />
+      </junit>
+   </target>
+
+
+
+</project>
+
+
+
+

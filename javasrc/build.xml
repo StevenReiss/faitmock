@@ -1,0 +1,26 @@
+<project name='faitmock' default='all' >
+
+   <property name='PRO' value='/research' />
+   <property name='FAITMOCK' value='/research/people/spr/faitmock' />
+
+   <target name='all'>
+      <ant antfile="build.xml" dir="edu/brown/cs/faitmock/annot" />
+      <ant antfile="build.xml" dir="edu/brown/cs/faitmock/servlet" />
+   </target>
+
+   <path id='jdocsrc'>
+      <pathelement location='${FAITMOCK}/java' />
+      <pathelement location='${PRO}/ivy/lib/j2ee.jar' />
+   </path>
+
+
+   <target name='doc'>
+      <javadoc sourcepathref='jdocsrc' classpathref='bubbles.classpath' destdir='${PRO}/bubbles/doc'>
+	 <package name='edu.brown.cs.faitmock.annot' />
+	 <package name='edu.brown.cs.faitmock.servlet' />
+      </javadoc>
+   </target>
+
+
+</project>
+
