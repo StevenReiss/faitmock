@@ -42,6 +42,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import edu.brown.cs.karma.FileUntainted;
+
 
 public class FaitMockServletRequest implements HttpServletRequest {
 
@@ -52,7 +54,7 @@ public class FaitMockServletRequest implements HttpServletRequest {
 /*										*/
 /********************************************************************************/
 
-private ServletContext              servlet_context;
+private ServletContext		    servlet_context;
 private Cookie[]		    cookie_set;
 private Map<String, Vector<String>> header_data;
 private String			    request_method;
@@ -79,7 +81,10 @@ public FaitMockServletRequest(ServletContext ctx)
    header_data = new HashMap<>();
    Vector<String> vs = new Vector<>();
    vs.add("text-html");
+   vs.add(dummyString());
    header_data.put("Content-Type", vs);
+   header_data.put(dummyString(),vs);
+   
    try {
       if (Math.random() >= 0.5) {
 	 request_uri = new URI("http://localhost.test:9999/sample/request/5.get");
@@ -561,7 +566,7 @@ public RequestDispatcher getRequestDispatcher(String path)
 
 
 @Override
-public String getRealPath(String path)
+public @FileUntainted String getRealPath(String path)
 {
    return path;
 }
@@ -598,22 +603,21 @@ public String getRealPath(String path)
 
 
 
+
+
+
+
+
 /********************************************************************************/
 /*                                                                              */
-/*      Dummy dispatcher                                                        */
+/*      Tainted data                                                            */
 /*                                                                              */
 /********************************************************************************/
 
-private static class FaitMockDispatcher implements RequestDispatcher
+private @Tainted String dummyString()
 {
-   @Override public void forward(ServletRequest req,ServletResponse resp) {
-    }
- 
-   @Override public void include(ServletRequest req,ServletResponse resp) {
-    }
-   
-}       // end of inner class FaitMockDispatcher
-
+   return "UserDummyString_" + Math.random();
+}
 
 
 } // end of class FaitMockServletRequest

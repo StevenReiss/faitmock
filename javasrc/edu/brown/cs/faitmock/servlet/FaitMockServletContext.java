@@ -35,6 +35,8 @@ import javax.servlet.SessionCookieConfig;
 import javax.servlet.SessionTrackingMode;
 import javax.servlet.descriptor.JspConfigDescriptor;
 
+import edu.brown.cs.karma.FileUntainted;
+
 public class FaitMockServletContext implements ServletContext
 {
 
@@ -185,11 +187,11 @@ public FaitMockServletContext()
 
 @Override public RequestDispatcher getNamedDispatcher(String nm)
 {
-   return null;
+   return new FaitMockDispatcher();
 }
 
 
-@Override public String getRealPath(String path)
+@Override public @FileUntainted String getRealPath(String path)
 {
    return path;
 }
