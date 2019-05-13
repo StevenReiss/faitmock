@@ -84,12 +84,23 @@ public FaitMockServletRequest(ServletContext ctx)
    vs.add(dummyString());
    header_data.put("Content-Type", vs);
    header_data.put(dummyString(),vs);
-   
+   Vector<String> vs1 = new Vector<>();
+   vs1.add("1024");
+   header_data.put("Size",vs1);
+   Vector<String> vd = new Vector<>();
+   vd.add("Test");
+   vd.add("Value");
+   header_data.put("Test",vd);
+
    try {
-      if (Math.random() >= 0.5) {
+      if (Math.random() >= 0.2) {
 	 request_uri = new URI("http://localhost.test:9999/sample/request/5.get");
 	 request_method = "POST";
-      }
+       }
+      else if (Math.random() >= 0.3) {
+	 request_uri = new URI("http://localhost.test:9999/sample/request/5.get");
+	 request_method = "DELETE";
+       }
       else {
 	 request_uri = new URI("http://localhost.test:9999/sample/request?get=5");
 	 request_method = "GET";
@@ -101,6 +112,7 @@ public FaitMockServletRequest(ServletContext ctx)
    attribute_map = new Hashtable<>();
    char_encoding = "UTF-8";
    param_map = new Hashtable<>();
+   param_map.put("Test",new String [] { "Test" });
    dispatch_type = DispatcherType.REQUEST;
 }
 
@@ -609,9 +621,9 @@ public @FileUntainted String getRealPath(String path)
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Tainted data                                                            */
-/*                                                                              */
+/*										*/
+/*	Tainted data								*/
+/*										*/
 /********************************************************************************/
 
 private @Tainted String dummyString()

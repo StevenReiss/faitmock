@@ -58,7 +58,7 @@ private long			  creation_time;
 private long			  last_time;
 private int			  inactive_interval;
 private String			  session_id;
-private ServletContext            servlet_context;
+private ServletContext		  servlet_context;
 
 
 /********************************************************************************/
@@ -75,6 +75,7 @@ public FaitMockSession(ServletContext ctx)
    last_time = creation_time;
    inactive_interval = 5000;
    session_id = "S_" + creation_time + "_" + ((int) (Math.random() * 1000000));
+
 }
 
 

@@ -55,4 +55,8 @@
    <METHOD NAME='java.io.File.&lt;init&gt;'
       ARGANNOTATIONS='0:FileUntainted' />
 
+<!--
+   <METHOD NAME='javax.servlet.http.HttpServlet.service' SCAN='TRUE' INLINE='THIS' />
+-->
+
 </FAIT>
